@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import Form from "../Components/Form";
 import Post from "../Components/Post";
 import { colRef } from "../firebase_config";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
+import Loading from "../Components/Loading";
+import { toast } from "react-toastify";
 const User = () => {
 
     const navigate = useNavigate();
-    const [Data, setData] = useState([]);
+    const [Data, setData] = useState(null);
     useEffect(() => {
 
         
@@ -18,8 +19,6 @@ const User = () => {
             
             querySnapshot.forEach((doc) => {
                 localStorage.setItem("doc_id" , doc.id);
-                console.log("here : " , doc.id);
-                // console.log(doc.data());
                 setData(doc.data().projects);
             });
         });
@@ -30,19 +29,27 @@ const User = () => {
 
         // getRecords();
     }
-        , [])
+    , [])
 
     const handleLogout = () => {
         //clear the entire localstorage
-
+        toast.success('Logged Out Successfully !!!' , 
+        {
+            position: "top-right",
+            autoClose: 1300,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        })
         localStorage.clear();
         navigate('/')
         
     }
 
     let photoUrl = localStorage.Photo;
-
-    console.log(Data);
     return (
         <div className="bg-[#52b69a] min-h-screen pt-5 px-1">
             <div className="bg-white flex justify-around py-3 mx-40 mb-3 rounded-lg ">
@@ -64,25 +71,28 @@ const User = () => {
             </div>
             <div className="hidden md:grid md:grid-cols-3 gap-3">
                 <div className="md:col-span-2 ">
-                    {JSON.stringify(Data)}
-                    {Data.length === 0 ? 
+                    <div className="flex items-center justify-center">
+
+                        {Data === null && <Loading/>}
+
+                    </div>
+                    
+                    {Data?.length === 0 ? 
                     <>
                         <div className="bg-white rounded-xl text-center text-[#52b69a] font-semibold mt-4">
-                            No Projects Posted
+                            Add your First Project Now !!!
                         </div>
                     </> :
                     <>
-                    {Data.map((item , ind) => {
-                        return (
-                            <Post key={ind} id={ind + 1} title={item?.title} gLink={item?.gLink} hLink={item?.hLink} desc={item?.desc} />
-                        )
-                    })
-                    }
+                    {Data?.map((item , ind) => {
+                            return (
+                                <Post key={ind} id={ind + 1} title={item?.title} gLink={item?.gLink} hLink={item?.hLink} desc={item?.desc} />
+                            )
+                            })
+                        }
                     </>
                     }
-                    {/* <Post title={"Title - 1"} gLink={"https://www.google.com"} hLink={"https://www.google.com"} desc={"Hello this is the description"} />
-                    <Post title={"Title - 1"} gLink={"https://www.google.com"} hLink={"https://www.google.com"} desc={"Hello this is the description"} />
-                    <Post title={"Title - 1"} gLink={"https://www.google.com"} hLink={"https://www.google.com"} desc={"Hello this is the description"} /> */}
+            
                 </div>
                 <div className="md:col-span-1 mt-10 ">
                     <Form DATA={Data} />

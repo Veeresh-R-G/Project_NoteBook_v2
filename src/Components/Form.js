@@ -24,6 +24,9 @@ const Form = ({ DATA }) => {
         })
     }
     const handleSubmit = () => {
+
+        
+
         DATA.push(data);
         console.log(DATA);
         const docRef = doc(dataBase ,"users" , localStorage.getItem("doc_id"));
@@ -31,20 +34,33 @@ const Form = ({ DATA }) => {
         const newData = DATA;
 
 
-        setDoc(docRef , {"projects" : newData} , {merge : true})
-        .then(() => {
-            toast.success("Project Added Successfully", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-            })
-            console.log("Document successfully written!");
+        toast.promise(setDoc(docRef , {"projects" : newData} , {merge : true}) , 
+            {
+                pending : 'Promise is Pending',
+                success : 'Project Added Successfully',
+                error : 'Project was not added ',
+            },
+            {
+                
+                autoClose : 2000,
+                theme: "colored"
+            }
+        )
+
+        // setDoc(docRef , {"projects" : newData} , {merge : true})
+        // .then(() => {
+        //     toast.success("Project Added Successfully", {
+        //         position: "top-center",
+        //         autoClose: 2000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //     })
+        //     console.log("Document successfully written!");
         
-        })
-        .catch((error) => {
-            console.error("Error writing document: ", error);
-        });
+        // })
+        // .catch((error) => {
+        //     console.error("Error writing document: ", error);
+        // });
         
 
         //update the projects array

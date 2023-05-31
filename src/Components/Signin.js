@@ -5,13 +5,13 @@ import { useEffect, useState, } from 'react';
 import { signInWithPopup } from 'firebase/auth'
 import { useNavigate } from "react-router";
 import { colRef } from "../../src/firebase_config";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, query, where, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
 const SignIn = () => {
 
     let [authGoogleDets, setGoogleDets] = useState({});
     let [authGithubDets, setGithubDets] = useState({});
-
+    const [uuid, setUuid] = useState("")
     let navigate = useNavigate();
 
     useEffect(()=>
@@ -23,9 +23,10 @@ const SignIn = () => {
 
         toast.info("Please Sign In With Google to Continue", {
             position: "top-center",
-            autoClose: 2000,
+            autoClose: 1300,
             hideProgressBar: false,
             closeOnClick: true,
+            theme : "colored"
         })
     } , [navigate])
     
@@ -56,11 +57,11 @@ const SignIn = () => {
             })
     }
 
-    const signInWithGoogle = () => {
+    const signInWithGoogle =  () => {
 
 
 
-        signInWithPopup(auth, Googleprovider).then((res) => {
+        signInWithPopup(auth, Googleprovider).then(async (res) => {
             // console.log(res);
             setGoogleDets(res._tokenResponse)
             console.log(res._tokenResponse);
@@ -76,21 +77,60 @@ const SignIn = () => {
 
             }
 
+            const q = query(colRef, where('uuid', '==', res._tokenResponse.localId));
+            const querySnapshot = await getDocs(q);
+                       
+            if(querySnapshot.size === 0)
+            {
+                addDoc(colRef, myobj).then((res) => {
+                    toast.success("Logged In Successfully !!!" , 
+                    {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    })
+                    localStorage.setItem("doc_id", res?._key?.path?.segments[1])
+                }).catch((err) => {
+    
+                    toast.error("Error Logging In")
+                    console.log(err)
+                })
+            }
 
-
-            addDoc(colRef, myobj).then((res) => {
-                toast.success("User Added Successfully")
-                // console.log(res?._key?.path?.segments[1])
-                // localStorage.setItem("doc_id", res?._key?.path?.segments[1])
-            }).catch((err) => {
-
-                toast.error("Error Logging In")
-                console.log(err)
-            })
+            else{
+                toast(`🦄 Welcome Back ${localStorage.getItem('Name')}` , 
+                {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })   
+            }
+             
     
             navigate(`/user/${res._tokenResponse.firstName}`)
         
         }).catch((err) => {
+            toast.error('Error Logging In with Google , Please Try Again !!!',
+            {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
             console.log(err)
         })
     }
