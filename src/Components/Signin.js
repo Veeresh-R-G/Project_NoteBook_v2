@@ -18,6 +18,20 @@ const SignIn = () => {
         
         if (localStorage?.firstName !== undefined) {
             navigate(`/user/${localStorage.firstName}`)
+
+            toast(`🦄 Welcome Back ${localStorage.getItem('Name')}` , 
+                {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })   
+
+            return;
         }
 
         toast.info("Please Sign In With Google to Continue", {

@@ -44,56 +44,6 @@ const Form = ({ DATA }) => {
                 theme: "colored"
             }
         )
-
-
-        
-
-        // setDoc(docRef , {"projects" : newData} , {merge : true})
-        // .then(() => {
-        //     toast.success("Project Added Successfully", {
-        //         position: "top-center",
-        //         autoClose: 2000,
-        //         hideProgressBar: false,
-        //         closeOnClick: true,
-        //     })
-        //     console.log("Document successfully written!");
-        
-        // })
-        // .catch((error) => {
-        //     console.error("Error writing document: ", error);
-        // });
-        
-
-        //update the projects array
-        // setDoc(docRef , {"projects" : newData} , {merge : true})
-        // .then(() => {
-        //     toast.success("Project Added Successfully", {
-        //         position: "top-center",
-        //         autoClose: 2000,
-        //         hideProgressBar: false,
-        //         closeOnClick: true,
-        //     })
-        //     console.log("Document successfully written!");
-        //     console.log("Submitted");
-            
-        // })
-
-        // setDoc(docRef , {"uuid" : localStorage.getItem("uuid") , "projects" : newData , "user" : localStorage.getItem("Name")})
-        // .then(() => {
-        //     toast.success("Project Added Successfully", {
-        //         position: "top-center",
-        //         autoClose: 2000,
-        //         hideProgressBar: false,
-        //         closeOnClick: true,
-        //     })
-        //     console.log("Document successfully written!");
-        //     console.log("Submitted");
-            
-        // })
-        // .catch((error) => {
-        //     console.error("Error writing document: ", error);
-        // });
-        
         
     }
     return (

@@ -89,7 +89,7 @@ const User = () => {
 
 
             <div className="flex flex-col-reverse md:grid md:grid-cols-3 gap-3">
-                <div className="md:col-span-2 ">
+                <div className="md:col-span-2 pl-4 ">
                     <div className="flex items-center justify-center">
 
                         {Data === null && <Loading/>}
@@ -103,16 +103,20 @@ const User = () => {
                         </div>
                     </> :
                     <>
-                    <div>
+                    {
+                        Data !== null && 
                         <div>
-                            <select onChange={selectProjects} className="border-2 outline-none text-[#1a5b43] font-semibold border-[#52b69a] rounded-md px-2 py-1 mt-3 " name="filter" id="filter">
-                                <option value="All">All</option>
-                                <option value="r_5">Recent 5</option>
-                                <option value="r_10">Recent 10</option>
-                            </select>    
-                        </div>
-
-                    </div>
+                            <div>
+                                <select onChange={selectProjects} className="border-2 outline-none text-[#1a5b43] font-semibold border-[#52b69a] rounded-md px-2 py-1 mt-3 " name="filter" id="filter">
+                                    <option value="All">All</option>
+                                    <option value="r_5">Recent 5</option>
+                                    <option value="r_10">Recent 10</option>
+                                </select>    
+                            </div>
+                        </div> 
+                    
+                    }
+                    
                     {dummyData?.map((item , ind) => {
                             return (
                                 <Post key={ind} id={ind + 1} title={item?.title} gLink={item?.gLink} hLink={item?.hLink} desc={item?.desc} />
