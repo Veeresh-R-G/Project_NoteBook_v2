@@ -19,9 +19,6 @@ const Home = () => {
                 </div>
 
                 <div className="mx-1 buttons flex flex-col items-center justify-center">
-
-                    <a className="decoration-none" href=""></a>
-                    <a className="decoration-none" href=""></a>
                     <button className="uppercase mx-2 lg:w-1/3 bg-blue-500 rounded-md mt-14 py-2 px-5 text-white font-bold hover:bg-white border-2  hover:text-[#6B7280] hover:border-1 border-gray-400"><a href="https://github.com/Veeresh-R-G/Projects-NoteBook-V2">Check Github Repo ➡️</a> </button>
                     <button className="uppercase mx-2 lg:w-1/3 bg-emerald-500 rounded-md mt-4 py-2 px-5 text-white font-bold hover:bg-white border-2  hover:text-[#6B7280] hover:border-1 border-gray-400"><a href="/login">Check Project here ➡️</a> </button>
                 </div>
