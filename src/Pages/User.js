@@ -19,7 +19,7 @@ const User = () => {
             
             querySnapshot.forEach((doc) => {
                 localStorage.setItem("doc_id" , doc.id);
-                setData(doc.data().projects);
+                setData(doc.data().projects.reverse());
             });
         });
         // const getRecords = async () => {

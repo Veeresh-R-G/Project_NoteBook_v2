@@ -28,16 +28,14 @@ const Form = ({ DATA }) => {
         
 
         DATA.push(data);
-        console.log(DATA);
         const docRef = doc(dataBase ,"users" , localStorage.getItem("doc_id"));
-        console.log("docRef : " , docRef);
         const newData = DATA;
 
 
         toast.promise(setDoc(docRef , {"projects" : newData} , {merge : true}) , 
             {
-                pending : 'Promise is Pending',
-                success : 'Project Added Successfully',
+                pending : 'Adding Project',
+                success : 'Project Added Successfully , Please Reload to the page to see the changes',
                 error : 'Project was not added ',
             },
             {
@@ -46,6 +44,9 @@ const Form = ({ DATA }) => {
                 theme: "colored"
             }
         )
+
+
+        
 
         // setDoc(docRef , {"projects" : newData} , {merge : true})
         // .then(() => {
@@ -110,7 +111,7 @@ const Form = ({ DATA }) => {
                 <input type="text" name="title" placeholder="Title" className="border outline-none py-2 mt-7 rounded-md text-center" />
                 <br />
                 <br />
-                <input type="text" name="desc" placeholder="Description" className="border outline-none py-2  rounded-md text-center" />
+                <textarea rows={3} cols={22} type="text" name="desc" placeholder="Description" className="border outline-none py-2  rounded-md text-center px-2" />
                 <br />
                 <br />
                 <input type="text" name="gLink" placeholder="Github Link" className="border outline-none py-2  rounded-md text-center" />
