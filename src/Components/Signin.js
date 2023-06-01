@@ -5,13 +5,12 @@ import { useEffect, useState, } from 'react';
 import { signInWithPopup } from 'firebase/auth'
 import { useNavigate } from "react-router";
 import { colRef } from "../../src/firebase_config";
-import { collection, getDocs, addDoc, query, where, doc } from "firebase/firestore";
+import { getDocs, addDoc, query, where } from "firebase/firestore";
 import { toast } from "react-toastify";
 const SignIn = () => {
 
     let [authGoogleDets, setGoogleDets] = useState({});
-    let [authGithubDets, setGithubDets] = useState({});
-    const [uuid, setUuid] = useState("")
+    console.log(authGoogleDets)
     let navigate = useNavigate();
 
     useEffect(()=>
@@ -52,7 +51,7 @@ const SignIn = () => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 // The email of the user's account used.
-                const email = error.customData.email;
+                // const email = error.customData.email;
                 console.log(errorCode, errorMessage)
             })
     }
