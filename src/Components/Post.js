@@ -12,34 +12,33 @@ const Post = ({ id,title, hLink, gLink, desc }) => {
 
             <div className="mt-5">
                 <div className="flex">
-                    <div className="pr-10">
+                    {gLink !== "" && gLink !== null && 
+                          <div className="pr-10">
 
-                        <div className="flex">
+                                <div className="flex">
+        
+                                    <p className="text-base md:text-lg mr-2">GitHub </p>
+                                    <a href={gLink}>
+                                        <span className="my-auto"><VscGithubInverted className=" h-5 w-5" /></span>
+                                    </a>
+                                    
+                                </div>
 
-                            <p className="text-base md:text-lg mr-2">GitHub </p>
-                            <a href={gLink}>
-                                <span className="my-auto"><VscGithubInverted className=" h-5 w-5" /></span>
-                            </a>
-                            
-                        </div>
+                            </div>    
+                    } 
+                    {hLink !== "" && hLink !== null && 
+                        <div className="mr-10">
+                            <div className="flex">
+                                <p className="text-base md:text-lg pr-2">Website </p>
+                                <a href={hLink}>
+                                    <span className="my-auto"><AiOutlineLink className=" h-5 w-5" /></span>
+                                </a>
+                            </div>
 
-                    </div>
-                    <div className="mr-10">
-                        <div className="flex">
-                            <p className="text-base md:text-lg pr-2">Website </p>
-                            <a href={hLink}>
-                                <span className="my-auto"><AiOutlineLink className=" h-5 w-5" /></span>
-                            </a>
-                        </div>
-
-                    </div>
-
-
-
+                        </div>    
+                    }
                 </div>
-
             </div>
-
         </div>
     );
 }
